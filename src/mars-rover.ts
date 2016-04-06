@@ -10,11 +10,35 @@ export interface Position extends Cooridnate {
     orientation: Orientation;
 }
 
-export enum Orientation {
-    North,
-    South,
-    East,
-    West
+interface Orientation {
+    forward: (position:Position) => Position;
+}
+
+export const Orientations = {
+    North: {
+        forward: (position:Position) => {
+            position.y++;
+            return position;
+        }
+    },
+    South: {
+        forward: (position:Position) => {
+            position.y--;
+            return position;
+        }
+    },
+    East: {
+        forward: (position:Position) => {
+            position.x++;
+            return position;
+        }
+    },
+    West: {
+        forward: (position:Position) => {
+            position.x--;
+            return position;
+        }
+    }
 }
 
 export enum Instruction {
@@ -26,13 +50,7 @@ export enum Instruction {
 export function createWorld (startingPosition:Position) {
     return function move (instructions: Array<Instruction>): Cooridnate {
         return instructions.reduce((position, instruction) => {
-            if (startingPosition.orientation === Orientation.North) {
-                position.y ++;
-            }
-            if (startingPosition.orientation === Orientation.South) {
-                position.y --;
-            }
-            return position;
+            return position.orientation.forward(position);
         }, startingPosition);
     }
 }
