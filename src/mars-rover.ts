@@ -14,6 +14,11 @@ interface Orientation {
     forward: (position:Position) => Position;
 }
 
+export interface FinalSpot {
+    cooridnate:Cooridnate;
+    lost: boolean;
+}
+
 export const Orientations = {
     North: {
         forward: (position:Position) => {
@@ -47,10 +52,22 @@ export enum Instruction {
     Right
 }
 
-export function createWorld (startingPosition:Position) {
-    return function move (instructions: Array<Instruction>): Cooridnate {
-        return instructions.reduce((position, instruction) => {
+export function createWorld (startingPosition:Position, topRightBoundery:Cooridnate) {
+    return function move (instructions: Array<Instruction>): FinalSpot {
+        let finalCoordinate = instructions.reduce((position, instruction) => {
             return position.orientation.forward(position);
         }, startingPosition);
+        if (finalCoordinate.x > topRightBoundery.x) {
+            finalCoordinate.x = topRightBoundery.x;
+            return {
+                cooridnate: finalCoordinate,
+                lost: true
+            };
+        }
+        return {
+            cooridnate: finalCoordinate,
+            lost: false
+        };
+
     }
 }
