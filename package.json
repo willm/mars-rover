@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npm run build && tape build/test/mars-rover-tests.js",
     "build": "tsc",
-    "postinstall": "typings install"
+    "postinstall": "typings install",
+    "start": "npm run build && node build/mars-rover.js"
   },
   "author": "",
   "license": "ISC",
