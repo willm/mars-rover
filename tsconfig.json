@@ -8,6 +8,6 @@
         "sourceMap": true
     },
     "files": [
-        "src/test/mars-rover.ts"
+        "src/test/mars-rover-tests.ts"
     ]
 }

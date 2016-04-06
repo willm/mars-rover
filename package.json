@@ -4,7 +4,7 @@
   "description": "My implementation of the mars rover kata",
   "main": "index.js",
   "scripts": {
-    "test": "npm run build && tape build/mars-rover.js",
+    "test": "npm run build && tape build/test/mars-rover-tests.js",
     "build": "tsc",
     "postinstall": "typings install"
   },
