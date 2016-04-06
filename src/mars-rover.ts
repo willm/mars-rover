@@ -25,6 +25,9 @@ export enum Instruction {
 
 export function createWorld (startingPosition:Position) {
     return function move (instructions: Array<Instruction>): Cooridnate {
-        return startingPosition;
+        return instructions.reduce((position, instruction) => {
+            position.y += 1;
+            return position;
+        }, startingPosition);
     }
 }
