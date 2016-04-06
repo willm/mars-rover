@@ -26,7 +26,12 @@ export enum Instruction {
 export function createWorld (startingPosition:Position) {
     return function move (instructions: Array<Instruction>): Cooridnate {
         return instructions.reduce((position, instruction) => {
-            position.y += 1;
+            if (startingPosition.orientation === Orientation.North) {
+                position.y ++;
+            }
+            if (startingPosition.orientation === Orientation.South) {
+                position.y --;
+            }
             return position;
         }, startingPosition);
     }
