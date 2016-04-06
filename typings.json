@@ -1,0 +1,9 @@
+{
+  "name": "mars-rover",
+  "version": false,
+  "dependencies": {},
+  "ambientDependencies": {
+    "node": "registry:dt/node#4.0.0+20160330064709",
+    "tape": "registry:dt/tape#4.2.2+20160317120654"
+  }
+}
