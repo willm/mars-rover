@@ -1,6 +1,8 @@
 /// <reference path="../../typings/main.d.ts"/>
 'use strict';
 
+import p = require('../positions');
+import i = require('../instructions');
 import test = require('tape');
 import os = require('os');
 import mr = require('../mars-rover');
@@ -17,30 +19,30 @@ const inputParser  = function (script:string):GameRun {
     }
 }//= require('../file-parser');
 
-function parseTopRightBoundery (properties:Array<string>):mr.Cooridnate {
+function parseTopRightBoundery (properties:Array<string>):p.Cooridnate {
     return parseCordinate(properties);
 }
 
-function parseCordinate (properties:Array<string>):mr.Cooridnate {
+function parseCordinate (properties:Array<string>):p.Cooridnate {
     return { x: Number(properties[0]), y: Number(properties[1]) };
 }
-function parseStartingPosition (properties:Array<string>):mr.Position {
-    let startingPosition = <mr.Position>parseCordinate(properties);
-    startingPosition.orientation = mr.orientations.filter(o => o.command === properties[2])[0];
+function parseStartingPosition (properties:Array<string>):p.Position {
+    let startingPosition = <p.Position>parseCordinate(properties);
+    startingPosition.orientation = p.orientations.filter(o => o.command === properties[2])[0];
     return startingPosition;
 }
 
-function parseInstructions(commands: Array<string>): Array<mr.Instruction> {
+function parseInstructions(commands: Array<string>): Array<i.Instruction> {
     return commands
         .map((cmd) => {
-            return mr.instructions.filter((i) => i.command === cmd)[0];
+            return i.instructions.filter((i) => i.command === cmd)[0];
         });
 };
 
 interface GameRun {
-    startingPosition: mr.Position,
-    topRightBoundery: mr.Cooridnate,
-    instructions: Array<mr.Instruction>
+    startingPosition: p.Position,
+    topRightBoundery: p.Cooridnate,
+    instructions: Array<i.Instruction>
 }
 
 test('Parses a one robot script', (assert) => {
@@ -51,8 +53,8 @@ test('Parses a one robot script', (assert) => {
     assert.equal(gameRun.startingPosition.y, 1);
     assert.equal(gameRun.startingPosition.orientation.command, 'E');
     assert.deepEqual(gameRun.instructions, [
-        mr.Instructions.Forward,
-        mr.Instructions.Forward
+        i.Instructions.Forward,
+        i.Instructions.Forward
     ]);
     assert.end();
 });
@@ -65,7 +67,7 @@ test('Parses a different one robot script', (assert) => {
     assert.equal(gameRun.startingPosition.y, 1);
     assert.equal(gameRun.startingPosition.orientation.command, 'N');
     assert.deepEqual(gameRun.instructions, [
-        mr.Instructions.Forward
+        i.Instructions.Forward
     ]);
     assert.end();
 });
