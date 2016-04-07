@@ -9,7 +9,7 @@ const exec = cp.exec;
 test('A simple robot journey is reported', (assert) => {
     exec('npm start src/test/input.txt', (err, stdout, stderr) => {
         assert.notOk(err);
-        const expected = `1 1 E\n`;
+        const expected = `3 1 E\n`;
         assert.equal(stdout, expected);
         assert.end();
     });

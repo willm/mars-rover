@@ -7,43 +7,7 @@ import test = require('tape');
 import os = require('os');
 import mr = require('../mars-rover');
 const lineBreak = os.EOL;
-const inputParser  = function (script:string):GameRun {
-    const parts = script.split(lineBreak);
-    const topRightBoundery = parseTopRightBoundery(parts[0].split(' '));
-    const startingPosition = parseStartingPosition(parts[1].split(' '));
-    const instructions = parseInstructions(parts[2].split(''));
-    return {
-        startingPosition: startingPosition,
-        topRightBoundery: topRightBoundery,
-        instructions: instructions
-    }
-}//= require('../file-parser');
-
-function parseTopRightBoundery (properties:Array<string>):p.Cooridnate {
-    return parseCordinate(properties);
-}
-
-function parseCordinate (properties:Array<string>):p.Cooridnate {
-    return { x: Number(properties[0]), y: Number(properties[1]) };
-}
-function parseStartingPosition (properties:Array<string>):p.Position {
-    let startingPosition = <p.Position>parseCordinate(properties);
-    startingPosition.orientation = p.orientations.filter(o => o.command === properties[2])[0];
-    return startingPosition;
-}
-
-function parseInstructions(commands: Array<string>): Array<i.Instruction> {
-    return commands
-        .map((cmd) => {
-            return i.instructions.filter((i) => i.command === cmd)[0];
-        });
-};
-
-interface GameRun {
-    startingPosition: p.Position,
-    topRightBoundery: p.Cooridnate,
-    instructions: Array<i.Instruction>
-}
+import inputParser = require('../input-parser');
 
 test('Parses a one robot script', (assert) => {
     const script = ['5 3', '1 1 E', 'FF'].join(lineBreak);
