@@ -12,6 +12,7 @@ export interface Position extends Cooridnate {
 
 interface Orientation {
     forward: (position:Position) => Position;
+    command: string;
 }
 
 export interface FinalSpot {
@@ -19,37 +20,59 @@ export interface FinalSpot {
     lost: boolean;
 }
 
-export const Orientations = {
-    North: {
+export const orientations = [
+    {
         forward: (position:Position) => {
             position.y++;
             return position;
-        }
+        },
+        command: 'N'
     },
-    South: {
+    {
         forward: (position:Position) => {
             position.y--;
             return position;
-        }
+        },
+        command: 'S'
     },
-    East: {
+    {
         forward: (position:Position) => {
             position.x++;
             return position;
-        }
+        },
+        command: 'E'
     },
-    West: {
+    {
         forward: (position:Position) => {
             position.x--;
             return position;
-        }
+        },
+        command: 'W'
     }
+];
+
+export const Orientations = {
+    North: orientations[0],
+    South: orientations[1],
+    East: orientations[2],
+    West: orientations[3]
+};
+
+
+export const instructions = [
+    {command: 'F'},
+    {command: 'L'},
+    {command: 'R'}
+];
+
+export interface Instruction {
+    command: string;
 }
 
-export enum Instruction {
-    Forward,
-    Left,
-    Right
+export const Instructions = {
+    Forward: instructions[0],
+    Left: instructions[1],
+    Right: instructions[2]
 }
 
 export function createWorld (startingPosition:Position, topRightBoundery:Cooridnate) {

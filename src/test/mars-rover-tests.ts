@@ -14,28 +14,28 @@ test('A robot with no instructions remains at the start position', (assert) => {
 
 test('Forward instruction moves robot forward north', (assert) => {
     const move = mr.createWorld({ x:0, y:0, orientation: mr.Orientations.North}, upperRightBoundery);
-    const finalPosition = move([mr.Instruction.Forward]);
+    const finalPosition = move([mr.Instructions.Forward]);
     checkPosition(assert, {cooridnate: {x: 0, y:1}, lost: false}, finalPosition);
     assert.end();
 });
 
 test('Forward instruction moves robot forward south', (assert) => {
     const move = mr.createWorld({ x:0, y:1, orientation: mr.Orientations.South}, upperRightBoundery);
-    const finalPosition = move([mr.Instruction.Forward]);
+    const finalPosition = move([mr.Instructions.Forward]);
     checkPosition(assert, {cooridnate: {x: 0, y:0}, lost: false}, finalPosition);
     assert.end();
 });
 
 test('Forward instruction moves robot forward east', (assert) => {
     const move = mr.createWorld({ x:0, y:0, orientation: mr.Orientations.East}, upperRightBoundery);
-    const finalPosition = move([mr.Instruction.Forward]);
+    const finalPosition = move([mr.Instructions.Forward]);
     checkPosition(assert, {cooridnate: {x: 1, y:0}, lost: false}, finalPosition);
     assert.end();
 });
 
 test('Moving off the grid marks the robot as lost', (assert) => {
     const move = mr.createWorld({ x:0, y:0, orientation: mr.Orientations.East}, upperRightBoundery);
-    const finalPosition = move([mr.Instruction.Forward, mr.Instruction.Forward]);
+    const finalPosition = move([mr.Instructions.Forward, mr.Instructions.Forward]);
     checkPosition(assert, {cooridnate: {x: 1, y:0}, lost: true}, finalPosition);
     assert.end();
 });

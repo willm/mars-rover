@@ -6,10 +6,10 @@ import os = require('os');
 import mr = require('../mars-rover');
 const lineBreak = os.EOL;
 const inputParser  = function (script:string):GameRun {
-    const parts = script.split(lineBreak).map(line => { return line.split(' ')});
-    const topRightBoundery = parseTopRightBoundery(parts[0]);
-    const startingPosition = parseStartingPosition(parts[1]);
-    const instructions = parseInstructions(parts[2]);
+    const parts = script.split(lineBreak);
+    const topRightBoundery = parseTopRightBoundery(parts[0].split(' '));
+    const startingPosition = parseStartingPosition(parts[1].split(' '));
+    const instructions = parseInstructions(parts[2].split(''));
     return {
         startingPosition: startingPosition,
         topRightBoundery: topRightBoundery,
@@ -25,13 +25,16 @@ function parseCordinate (properties:Array<string>):mr.Cooridnate {
     return { x: Number(properties[0]), y: Number(properties[1]) };
 }
 function parseStartingPosition (properties:Array<string>):mr.Position {
-    let startingPosition:any = parseCordinate(properties);
-    startingPosition.orientation = mr.Orientations.East;
+    let startingPosition = <mr.Position>parseCordinate(properties);
+    startingPosition.orientation = mr.orientations.filter(o => o.command === properties[2])[0];
     return startingPosition;
 }
 
-function parseInstructions(properties: Array<string>): Array<mr.Instruction> {
-    return [mr.Instruction.Forward, mr.Instruction.Forward];
+function parseInstructions(commands: Array<string>): Array<mr.Instruction> {
+    return commands
+        .map((cmd) => {
+            return mr.instructions.filter((i) => i.command === cmd)[0];
+        });
 };
 
 interface GameRun {
@@ -44,14 +47,25 @@ test('Parses a one robot script', (assert) => {
     const script = ['5 3', '1 1 E', 'FF'].join(lineBreak);
     const gameRun = inputParser(script);
     assert.deepEqual(gameRun.topRightBoundery, {x: 5, y: 3});
-    assert.deepEqual(gameRun.startingPosition, {
-        x: 1,
-        y: 1,
-        orientation: mr.Orientations.East
-    });
+    assert.equal(gameRun.startingPosition.x, 1);
+    assert.equal(gameRun.startingPosition.y, 1);
+    assert.equal(gameRun.startingPosition.orientation.command, 'E');
     assert.deepEqual(gameRun.instructions, [
-        mr.Instruction.Forward,
-        mr.Instruction.Forward
+        mr.Instructions.Forward,
+        mr.Instructions.Forward
+    ]);
+    assert.end();
+});
+
+test('Parses a different one robot script', (assert) => {
+    const script = ['4 2', '0 1 N', 'F'].join(lineBreak);
+    const gameRun = inputParser(script);
+    assert.deepEqual(gameRun.topRightBoundery, {x: 4, y: 2});
+    assert.equal(gameRun.startingPosition.x, 0);
+    assert.equal(gameRun.startingPosition.y, 1);
+    assert.equal(gameRun.startingPosition.orientation.command, 'N');
+    assert.deepEqual(gameRun.instructions, [
+        mr.Instructions.Forward
     ]);
     assert.end();
 });
