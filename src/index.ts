@@ -10,4 +10,13 @@ const fileContent = fs.readFileSync(filePath, 'utf-8');
 const gameMove = inputParser(fileContent);
 const move = mr.createWorld(gameMove.startingPosition, gameMove.topRightBoundery);
 const finalSpot = move(gameMove.instructions);
-console.log(`${finalSpot.cooridnate.x} ${finalSpot.cooridnate.y} ${finalSpot.cooridnate.orientation.command}`);
+console.log(buildOutput(finalSpot));
+
+function buildOutput(finalSpot:mr.FinalSpot): string {
+    let output = finalSpot.cooridnate.x.toString() +
+        ' ' +
+        finalSpot.cooridnate.y.toString() +
+        ' ' +
+        finalSpot.cooridnate.orientation.command;
+    return finalSpot.lost ? output += ' LOST' : output;
+}
