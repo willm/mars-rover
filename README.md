@@ -6,7 +6,7 @@ You'll need nodejs installed, version higher than 4.0.0. The program should run 
 
 ##Running the program
 
-The program takes input in the form of a test script. To run it, create a script and run `build/index.js path/to/your/test/script`. For some example test scripts, see the `src/test/test-scripts` directory.
+The program takes input in the form of a test script. To run it, create a script and run `node build/index.js path/to/your/test/script`. For some example test scripts, see the `src/test/test-scripts` directory.
 
 ##Build
 
