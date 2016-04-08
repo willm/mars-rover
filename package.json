@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "My implementation of the mars rover kata",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/willm/mars-rover.git"
+  },
   "scripts": {
     "test": "npm run build && tape build/test/*.js",
     "build": "tsc",
