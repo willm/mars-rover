@@ -10,7 +10,8 @@
   "scripts": {
     "test": "npm run build && tape build/test/*.js",
     "build": "tsc",
-    "postinstall": "typings install"
+    "postinstall": "typings install",
+    "start": "npm run build && node build/index.js"
   },
   "author": "",
   "license": "ISC",
