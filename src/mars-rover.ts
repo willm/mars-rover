@@ -16,28 +16,38 @@ interface World {
     robot: (startingPosition: p.Position) => Robot
 }
 
+function createRobot (topRightBoundery:p.Cooridnate, startingPosition:p.Position) {
+    return {
+        move: move.bind(null, topRightBoundery, startingPosition)
+    };
+}
+
+function move (topRightBoundery:p.Cooridnate, startingPosition:p.Position, instructions: Array<i.Instruction>) {
+    let finalCoordinate:p.Position = instructions.reduce((position, instruction) => {
+        return position.orientation.forward(position);
+    }, startingPosition);
+    if (finalCoordinate.x > topRightBoundery.x) {
+        finalCoordinate.x = topRightBoundery.x;
+        return {
+            cooridnate: finalCoordinate,
+            lost: true
+        };
+    }
+    if (finalCoordinate.y > topRightBoundery.y) {
+        finalCoordinate.y = topRightBoundery.y;
+        return {
+            cooridnate: finalCoordinate,
+            lost: true
+        };
+    }
+    return {
+        cooridnate: finalCoordinate,
+        lost: false
+    };
+}
+
 export function createWorld (topRightBoundery:p.Cooridnate): World {
     return {
-        robot: function (startingPosition:p.Position) {
-            return {
-                move: function move (instructions: Array<i.Instruction>): FinalSpot {
-                    let finalCoordinate:p.Position = instructions.reduce((position, instruction) => {
-                        return position.orientation.forward(position);
-                    }, startingPosition);
-                    if (finalCoordinate.x > topRightBoundery.x) {
-                        finalCoordinate.x = topRightBoundery.x;
-                        return {
-                            cooridnate: finalCoordinate,
-                            lost: true
-                        };
-                    }
-                    return {
-                        cooridnate: finalCoordinate,
-                        lost: false
-                    };
-
-                }
-            }
-        }
-    }
+        robot: createRobot.bind(null, topRightBoundery)
+    };
 }

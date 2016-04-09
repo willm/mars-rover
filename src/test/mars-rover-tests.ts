@@ -68,13 +68,26 @@ const testCases:Array<TestCase> = [
         }
     },
     {
-        name: 'Moving off the grid marks the robot as lost',
+        name: 'Moving off the grid east marks the robot as lost',
         startingPosition: { x:0, y:0, orientation: p.Orientations.East},
         instructions: [i.Instructions.Forward, i.Instructions.Forward],
         expected: {
             cooridnate: {
                 x: 1,
                 y:0,
+                orientation: p.Orientations.North
+            },
+            lost: true
+        }
+    },
+    {
+        name: 'Moving off the grid north marks the robot as lost',
+        startingPosition: { x:0, y:0, orientation: p.Orientations.North},
+        instructions: [i.Instructions.Forward, i.Instructions.Forward],
+        expected: {
+            cooridnate: {
+                x: 0,
+                y:1,
                 orientation: p.Orientations.North
             },
             lost: true
