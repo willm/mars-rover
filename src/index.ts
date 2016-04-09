@@ -8,8 +8,10 @@ import fs = require('fs');
 const filePath = process.argv[2];
 const fileContent = fs.readFileSync(filePath, 'utf-8');
 const gameMove = inputParser(fileContent);
-const move = mr.createWorld(gameMove.startingPosition, gameMove.topRightBoundery);
-const finalSpot = move(gameMove.instructions);
+const finalSpot = mr.createWorld(gameMove.topRightBoundery)
+    .robot(gameMove.startingPosition)
+    .move(gameMove.instructions);
+
 console.log(buildOutput(finalSpot));
 
 function buildOutput(finalSpot:mr.FinalSpot): string {

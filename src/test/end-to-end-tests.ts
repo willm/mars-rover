@@ -23,3 +23,12 @@ test('A robot lost too far east', (assert) => {
         assert.end();
     });
 });
+
+test('A robot lost too far east', (assert) => {
+    exec('build/index.js src/test/test-scripts/turning-around.txt', (err, stdout, stderr) => {
+        assert.notOk(err);
+        const expected = `1 1 E\n`;
+        assert.equal(stdout, expected);
+        assert.end();
+    });
+});

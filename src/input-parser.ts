@@ -4,8 +4,9 @@ import p = require('./positions');
 import os = require('os');
 const lineBreak = os.EOL;
 import i = require('./instructions');
+import g = require('./game-run');
 
-export = function (script:string):GameRun {
+export = function (script:string):g.GameRun {
     const parts = script.split(lineBreak);
     const topRightBoundery = parseTopRightBoundery(parts[0].split(' '));
     const startingPosition = parseStartingPosition(parts[1].split(' '));
@@ -36,9 +37,3 @@ function parseInstructions(commands: Array<string>): Array<i.Instruction> {
             return i.instructions.filter((i) => i.command === cmd)[0];
         });
 };
-
-interface GameRun {
-    startingPosition: p.Position,
-    topRightBoundery: p.Cooridnate,
-    instructions: Array<i.Instruction>
-}
