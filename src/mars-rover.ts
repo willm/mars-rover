@@ -39,7 +39,13 @@ const lostConditions = [
 
 function move (topRightBoundery:p.Cooridnate, startingPosition:p.Position, instructions: Array<i.Instruction>): FinalSpot {
     let finalCoordinate:p.Position = instructions.reduce((position, instruction) => {
-        return position.orientation.forward(position);
+        if (instruction === i.Instructions.Forward) {
+            return position.orientation.forward(position);    
+        }
+        if (instruction === i.Instructions.Right) {
+            return position.orientation.right(position);    
+        }
+        
     }, startingPosition);
     return {
         cooridnate: {

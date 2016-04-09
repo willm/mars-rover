@@ -3,6 +3,7 @@
 
 export interface Orientation {
     forward: (position:Position) => Position;
+    right:  (position:Position) => Position;
     command: string;
 };
 
@@ -21,6 +22,10 @@ export const orientations = [
             position.y++;
             return position;
         },
+        right: (position:Position) => {
+            position.orientation = Orientations.East;
+            return position;
+        },
         command: 'N'
     },
     {
@@ -28,6 +33,7 @@ export const orientations = [
             position.y--;
             return position;
         },
+        right: (position:Position) => position,
         command: 'S'
     },
     {
@@ -35,6 +41,7 @@ export const orientations = [
             position.x++;
             return position;
         },
+        right: (position:Position) => position,
         command: 'E'
     },
     {
@@ -42,6 +49,7 @@ export const orientations = [
             position.x--;
             return position;
         },
+        right: (position:Position) => position,
         command: 'W'
     }
 ];

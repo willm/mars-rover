@@ -49,7 +49,7 @@ const testCases:Array<TestCase> = [
             cooridnate: {
                 x: 0,
                 y:0,
-                orientation: p.Orientations.North
+                orientation: p.Orientations.South
             },
             lost: false
         }
@@ -62,7 +62,7 @@ const testCases:Array<TestCase> = [
             cooridnate: {
                 x: 1,
                 y:0,
-                orientation: p.Orientations.North
+                orientation: p.Orientations.East
             },
             lost: false
         }
@@ -75,7 +75,7 @@ const testCases:Array<TestCase> = [
             cooridnate: {
                 x: 1,
                 y:0,
-                orientation: p.Orientations.North
+                orientation: p.Orientations.East
             },
             lost: true
         }
@@ -118,6 +118,19 @@ const testCases:Array<TestCase> = [
             },
             lost: true
         }
+    },
+    {
+        name: 'Turing right when facing north faces you east',
+        startingPosition: { x:0, y:0, orientation: p.Orientations.North},
+        instructions: [i.Instructions.Right],
+        expected: {
+            cooridnate: {
+                x: 0,
+                y:0,
+                orientation: p.Orientations.East
+            },
+            lost: false
+        }
     }
 ];
 
@@ -135,5 +148,6 @@ testCases.forEach((testCase) => {
 function checkPosition (assert:test.Test, expected:mr.FinalSpot, actual:mr.FinalSpot) {
     assert.equal(expected.cooridnate.y, actual.cooridnate.y);
     assert.equal(expected.cooridnate.x, actual.cooridnate.x);
+    assert.equal(expected.cooridnate.orientation.command, actual.cooridnate.orientation.command);
     assert.equal(expected.lost, actual.lost);
 }
