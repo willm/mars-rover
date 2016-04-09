@@ -144,6 +144,19 @@ const testCases:Array<TestCase> = [
             },
             lost: false
         }
+    },
+    {
+        name: 'Turing right when facing south faces you west',
+        startingPosition: { x:0, y:0, orientation: p.Orientations.South},
+        instructions: [i.Instructions.Right],
+        expected: {
+            cooridnate: {
+                x: 0,
+                y:0,
+                orientation: p.Orientations.West
+            },
+            lost: false
+        }
     }
 ];
 

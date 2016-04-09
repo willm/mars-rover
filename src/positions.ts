@@ -33,7 +33,10 @@ export const orientations = [
             position.y--;
             return position;
         },
-        right: (position:Position) => position,
+        right: (position:Position) => {
+            position.orientation = Orientations.West;
+            return position;
+        },
         command: 'S'
     },
     {
