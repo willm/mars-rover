@@ -105,6 +105,19 @@ const testCases:Array<TestCase> = [
             },
             lost: true
         }
+    },
+    {
+        name: 'Moving off the grid west marks the robot as lost',
+        startingPosition: { x:0, y:0, orientation: p.Orientations.West},
+        instructions: [i.Instructions.Forward, i.Instructions.Forward],
+        expected: {
+            cooridnate: {
+                x: 0,
+                y:0,
+                orientation: p.Orientations.West
+            },
+            lost: true
+        }
     }
 ];
 

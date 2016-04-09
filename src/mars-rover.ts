@@ -31,6 +31,9 @@ const lostConditions = [
     },
     function lostSouth(topRightBoundery:p.Cooridnate, finalCoordinate:p.Cooridnate) {
         return finalCoordinate.y < 0;
+    },
+    function lostWest(topRightBoundery:p.Cooridnate, finalCoordinate:p.Cooridnate) {
+        return finalCoordinate.x < 0;
     }
 ];
 
@@ -40,7 +43,7 @@ function move (topRightBoundery:p.Cooridnate, startingPosition:p.Position, instr
     }, startingPosition);
     return {
         cooridnate: {
-            x: Math.min(finalCoordinate.x, topRightBoundery.x),
+            x: Math.max(0, Math.min(finalCoordinate.x, topRightBoundery.x)),
             y: Math.max(0, Math.min(finalCoordinate.y, topRightBoundery.y)),
             orientation: finalCoordinate.orientation
         },
