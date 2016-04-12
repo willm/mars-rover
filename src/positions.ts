@@ -69,7 +69,7 @@ export const orientations = [
             return position;
         },
         left: (position:Position) => {
-            position.orientation = Orientations.East;
+            position.orientation = Orientations.South;
             return position;
         },
         right: (position:Position) => {
