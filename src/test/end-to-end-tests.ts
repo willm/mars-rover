@@ -15,10 +15,10 @@ test('A simple robot journey is reported', (assert) => {
     });
 });
 
-test('A robot lost too far east', (assert) => {
+test('A lost robot', (assert) => {
     exec('node build/index.js src/test/test-scripts/lost-robot.txt', (err, stdout, stderr) => {
         assert.notOk(err);
-        const expected = `3 0 E LOST\n`;
+        const expected = `3 3 N LOST\n`;
         assert.equal(stdout, expected);
         assert.end();
     });

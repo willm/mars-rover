@@ -37,28 +37,29 @@ const lostConditions = [
     }
 ];
 
+
 function move (topRightBoundery:p.Cooridnate, startingPosition:p.Position, instructions: Array<i.Instruction>): FinalSpot {
-    let finalCoordinate:p.Position = instructions.reduce((position, instruction): p.Position => {
+    let finalSpot:FinalSpot = instructions.reduce((finalSpot, instruction): FinalSpot => {
+        let position = finalSpot.cooridnate;
+        if (finalSpot.lost) {
+            return finalSpot;
+        }
         if (instruction === i.Instructions.Forward) {
-            return position.orientation.forward(position);    
+            position = position.orientation.forward(position);
         }
         if (instruction === i.Instructions.Right) {
-            return position.orientation.right(position);    
+            position = position.orientation.right(position);
         }
         if (instruction === i.Instructions.Left) {
-            return position.orientation.left(position);    
+            position =  position.orientation.left(position);
         }
-        return startingPosition;
-        
-    }, startingPosition);
-    return {
-        cooridnate: {
-            x: Math.max(0, Math.min(finalCoordinate.x, topRightBoundery.x)),
-            y: Math.max(0, Math.min(finalCoordinate.y, topRightBoundery.y)),
-            orientation: finalCoordinate.orientation
-        },
-        lost: lostConditions.some(isLost => {return isLost(topRightBoundery, finalCoordinate)})
-    };
+        finalSpot.lost = lostConditions.some(isLost => {return isLost(topRightBoundery, finalSpot.cooridnate)});
+        finalSpot.cooridnate.x = Math.max(0, Math.min(finalSpot.cooridnate.x, topRightBoundery.x));
+        finalSpot.cooridnate.y = Math.max(0, Math.min(finalSpot.cooridnate.y, topRightBoundery.y));
+        return finalSpot;
+
+    }, { cooridnate: startingPosition, lost: false });
+    return finalSpot;
 }
 
 export function createWorld (topRightBoundery:p.Cooridnate): World {

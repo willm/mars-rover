@@ -42,7 +42,10 @@ export const orientations = [
             position.orientation = Orientations.West;
             return position;
         },
-        left: (position:Position) => position,
+        left: (position:Position) => {
+            position.orientation = Orientations.East;
+            return position;
+        },
         command: 'S'
     },
     {
@@ -54,7 +57,10 @@ export const orientations = [
             position.orientation = Orientations.South;
             return position;
         },
-        left: (position:Position) => position,
+        left: (position:Position) => {
+            position.orientation = Orientations.North;
+            return position;
+        },
         command: 'E'
     },
     {
@@ -62,7 +68,10 @@ export const orientations = [
             position.x--;
             return position;
         },
-        left: (position:Position) => position,
+        left: (position:Position) => {
+            position.orientation = Orientations.East;
+            return position;
+        },
         right: (position:Position) => {
             position.orientation = Orientations.North;
             return position;

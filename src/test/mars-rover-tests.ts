@@ -11,7 +11,7 @@ interface TestCase {
     name: string;
     startingPosition: p.Position;
     instructions: Array<i.Instruction>,
-    expected: mr.FinalSpot    
+    expected: mr.FinalSpot
 }
 
 const testCases:Array<TestCase> = [
@@ -182,6 +182,79 @@ const testCases:Array<TestCase> = [
                 orientation: p.Orientations.West
             },
             lost: false
+        }
+    },
+    {
+        name: 'Turing left when facing east faces you south',
+        startingPosition: { x:0, y:0, orientation: p.Orientations.East},
+        instructions: [i.Instructions.Left],
+        expected: {
+            cooridnate: {
+                x: 0,
+                y:0,
+                orientation: p.Orientations.North
+            },
+            lost: false
+        }
+    },
+    {
+        name: 'Turing left when facing south faces you east',
+        startingPosition: { x:0, y:0, orientation: p.Orientations.South},
+        instructions: [i.Instructions.Left],
+        expected: {
+            cooridnate: {
+                x: 0,
+                y:0,
+                orientation: p.Orientations.East
+            },
+            lost: false
+        }
+    },
+    {
+        name: 'Turing left when facing west faces you north',
+        startingPosition: { x:0, y:0, orientation: p.Orientations.South},
+        instructions: [i.Instructions.Left],
+        expected: {
+            cooridnate: {
+                x: 0,
+                y:0,
+                orientation: p.Orientations.East
+            },
+            lost: false
+        }
+    },
+    {
+        name: 'Moving forward after getting lost doesn\'t advance any further',
+        startingPosition: { x:0, y:0, orientation: p.Orientations.North},
+        instructions: [
+            i.Instructions.Forward,
+            i.Instructions.Forward,
+            i.Instructions.Forward
+        ],
+        expected: {
+            cooridnate: {
+                x: 0,
+                y:1,
+                orientation: p.Orientations.North
+            },
+            lost: true
+        }
+    },
+    {
+        name: 'Turning around after getting lost doesn\'t affect final position',
+        startingPosition: { x:0, y:0, orientation: p.Orientations.North},
+        instructions: [
+            i.Instructions.Forward,
+            i.Instructions.Forward,
+            i.Instructions.Left
+        ],
+        expected: {
+            cooridnate: {
+                x: 0,
+                y:1,
+                orientation: p.Orientations.North
+            },
+            lost: true
         }
     }
 ];
