@@ -25,7 +25,7 @@ test('A lost robot', (assert) => {
 });
 
 test('A robot turning around', (assert) => {
-    exec('build/index.js src/test/test-scripts/turning-around.txt', (err, stdout, stderr) => {
+    exec('node build/index.js src/test/test-scripts/turning-around.txt', (err, stdout, stderr) => {
         assert.notOk(err);
         const expected = `1 1 E\n`;
         assert.equal(stdout, expected);
@@ -34,7 +34,7 @@ test('A robot turning around', (assert) => {
 });
 
 test('A robot making a different journey', (assert) => {
-    exec('build/index.js src/test/test-scripts/another-journey.txt', (err, stdout, stderr) => {
+    exec('node build/index.js src/test/test-scripts/another-journey.txt', (err, stdout, stderr) => {
         assert.notOk(err);
         const expected = `2 3 S\n`;
         assert.equal(stdout, expected);
